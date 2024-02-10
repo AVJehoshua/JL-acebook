@@ -22,8 +22,8 @@ describe("/users", () => {
       const response = await request(app)
         .get(`/users/${newUser._id}`)
         .expect(200);
-      console.log(response.body)
-      console.log(newUser)
+      // console.log(response.body)
+      // console.log(newUser)
       expect(response.body.user._id.toString()).toBe(newUser._id.toString());
     });
   });

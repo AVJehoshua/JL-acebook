@@ -45,11 +45,10 @@ describe("/tokens", () => {
   });
 
   test("doesn't return a token when the wrong password is given", async () => {
-    let testApp = supertest(app);
+    const testApp = supertest(app);
     const response = await testApp
       .post("/tokens")
       .send({ full_name: "Test User", email: "auth-test@test.com", password: "1234" });
-
     expect(response.status).toEqual(401);
     expect(response.body.token).toEqual(undefined);
     expect(response.body.message).toEqual("Password incorrect");

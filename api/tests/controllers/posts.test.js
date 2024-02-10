@@ -111,7 +111,7 @@ describe("/posts", () => {
       await post2.save();
 
       const response = await request(app)
-        .get("/posts")
+        .get(`/posts/${post1._id}`)
         .set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toEqual(200);
@@ -124,10 +124,11 @@ describe("/posts", () => {
       await post2.save();
 
       const response = await request(app)
-        .get("/posts")
+        .get(`/posts/all/1`)
         .set("Authorization", `Bearer ${token}`);
 
       const posts = response.body.posts;
+      console.log("type of posts:" + typeof posts)
       const firstPost = posts[0];
       const secondPost = posts[1];
 
@@ -142,10 +143,13 @@ describe("/posts", () => {
       await post2.save();
 
       const response = await request(app)
-        .get("/posts")
+        .get(`/posts/${post1._id}`)
         .set("Authorization", `Bearer ${token}`);
 
+      console.log("token: " + token)
+
       const newToken = response.body.token;
+      console.log("token: " + newToken)
       const newTokenDecoded = JWT.decode(newToken, process.env.JWT_SECRET);
       const oldTokenDecoded = JWT.decode(token, process.env.JWT_SECRET);
 
